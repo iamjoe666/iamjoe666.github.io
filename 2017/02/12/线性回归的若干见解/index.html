@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <title>线性回归的若干见解 | JoeDataScience</title>
+  <title>线性回归的若干见解 | Joe | Data Science</title>
   <meta name="description" content="" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
@@ -13,7 +13,7 @@
   <link rel="stylesheet" type="text/css" href="/css/screen.css" />
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
 
-  <meta name="generator" content="JoeDataScience">
+  <meta name="generator" content="Joe | Data Science">
 
   
   
@@ -29,7 +29,7 @@
     <div class="vertical">
         <div class="site-head-content inner">
              <a class="blog-logo" href="/"><img src="//blog.ghost.org/content/images/2013/Nov/bloglogo_1-1.png" alt="Blog Logo"/></a> 
-            <h1 class="blog-title">JoeDataScience</h1>
+            <h1 class="blog-title">Joe | Data Science</h1>
             <h2 class="blog-description"></h2>
         </div>
     </div>
@@ -39,14 +39,22 @@
 <main class="content" role="main">
   <article class="post">
     <span class="post-meta">
-      <time datetime="2017-03-11T17:11:39.000Z" itemprop="datePublished">
-          2017-03-12
+      <time datetime="2017-02-11T17:11:39.000Z" itemprop="datePublished">
+          2017-02-12
       </time>
     
 </span>
     <h1 class="post-title">线性回归的若干见解</h1>
     <section class="post-content">
-      
+      <p>根本问题是求出hypothesesis的表达式，无非就是sita和特征量x，sita的取值在线性回归当中有两种方法：</p>
+<ul>
+<li><p>梯度下降方法，注意进行feature scaling，控制在0-1范围内是最理  想的，还要选择learning rate的值，太大不好，太小也不好；</p>
+</li>
+<li><p>正规方程法，目前只适用线性回归，优点是直接可以算出sita的值，但是当特征量大时，其计算量变大，效率慢。</p>
+</li>
+</ul>
+<p>在分类等问题当中，还是选用梯度下降法，在线性回归问题中，当特征量在1W以内的话，选择正规方程法，当在1W以上的话，选择梯度下降法，但也不是很绝对。</p>
+
     </section>
     <footer class="post-footer">
       <section class="author">
@@ -55,15 +63,15 @@
 </section>
       <section class="share">
     <h4>Share this post</h4>
-    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/03/12/线性回归的若干见解/"
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/02/12/线性回归的若干见解/"
        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
         <span class="hidden">Twitter</span>
     </a>
-    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/03/12/线性回归的若干见解/"
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/02/12/线性回归的若干见解/"
        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
         <span class="hidden">Facebook</span>
     </a>
-    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/03/12/线性回归的若干见解/"
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/02/12/线性回归的若干见解/"
        onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
         <span class="hidden">Google+</span>
     </a>
@@ -91,7 +99,7 @@
 <footer class="site-footer">
   
   <div class="inner">
-     <section class="copyright">All content copyright <a href="/">JoeDataScience</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="copyright">All content copyright <a href="/">Joe | Data Science</a> &copy; 2014 &bull; All rights reserved.</section>
      <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
   </div>
 </footer>

@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <title>JoeDataScience</title>
+  <title>Joe | Data Science</title>
   <meta name="description" content="" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
@@ -13,7 +13,7 @@
   <link rel="stylesheet" type="text/css" href="/css/screen.css" />
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
 
-  <meta name="generator" content="JoeDataScience">
+  <meta name="generator" content="Joe | Data Science">
 
   
   
@@ -29,7 +29,7 @@
     <div class="vertical">
         <div class="site-head-content inner">
              <a class="blog-logo" href="/"><img src="//blog.ghost.org/content/images/2013/Nov/bloglogo_1-1.png" alt="Blog Logo"/></a> 
-            <h1 class="blog-title">JoeDataScience</h1>
+            <h1 class="blog-title">Joe | Data Science</h1>
             <h2 class="blog-description"></h2>
         </div>
     </div>
@@ -40,22 +40,29 @@
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2017-03-11T17:11:39.000Z" itemprop="datePublished">
-          2017-03-12
+      <time datetime="2017-02-11T17:11:39.000Z" itemprop="datePublished">
+          2017-02-12
       </time>
     
 </span>
-      <h2 class="post-title"><a href="/2017/03/12/线性回归的若干见解/">线性回归的若干见解</a></h2>
+      <h2 class="post-title"><a href="/2017/02/12/线性回归的若干见解/">线性回归的若干见解</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
-        
+        根本问题是求出hypothesesis的表达式，无非就是sita和特征量x，sita的取值在线性回归当中有两种方法：
+
+梯度下降方法，注意进行feature scaling，控制在0-1范围内是最理  想的，还要选择learning rate的值，太大不好，太小也不好；
+
+正规方程法，目前只适用线性回归，优点是直接可以算出sita的值，但是当特征量大时，其计算量变大，效率慢。
+
+
+在分类等问题当中，还是选用梯度下降法，在线性回归问题中，
       
       </p>
       
       <p>
-          <a href="/2017/03/12/线性回归的若干见解/" class="excerpt-link">Read More...</a>
+          <a href="/2017/02/12/线性回归的若干见解/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>
@@ -74,15 +81,7 @@
     <section class="post-excerpt">
       <p>
       
-        有些人将数据挖掘看成是机器学习的同义词。毫无疑问，一些数据挖掘方法中确实适当使用了机器学习算法。机器学习擅长的场景是人们对数据中的寻找目标几乎一无所知。
-最广为接受的定义是，数据挖掘是数据“模型”的发现过程，提到模型，那么最重要的便是建模，大部分数据建模方法可以描述为下列两种做法之一：
-
-对数据进行简洁的近似汇总描述；
-
-从数据中抽取出最突出的特征来代替数据并将剩余内容忽略。
-
-
-
+        
       
       </p>
       
@@ -105,7 +104,7 @@
 <footer class="site-footer">
   
   <div class="inner">
-     <section class="copyright">All content copyright <a href="/">JoeDataScience</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="copyright">All content copyright <a href="/">Joe | Data Science</a> &copy; 2014 &bull; All rights reserved.</section>
      <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
   </div>
 </footer>
