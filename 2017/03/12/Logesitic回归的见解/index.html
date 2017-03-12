@@ -46,7 +46,7 @@
 </span>
     <h1 class="post-title">Logesitic回归的见解</h1>
     <section class="post-content">
-      <p>Logisitc Regulation用来解决分类的问题，第一部分是解决，0，1二分类问题；第二部分是解决，多分类问题。<br>Part 1:<br>首先定义H(x), ,其中，g(z) 是 sigmoid函数，这样定义H(X)是为了让其的范围控制在0-1之间，这样H(X)的值就是数据的概率，当大于等于0.5时归为1类，反之，归为0类。在octave中实现代码如下：<br><img src="https://iamjoe666.github.io/Logesitic回归的见解/1.png" alt="g"></p>
+      <p>Logisitc Regulation用来解决分类的问题，第一部分是解决，0，1二分类问题；第二部分是解决，多分类问题。<br>Part 1:<br>首先定义H(x), ,其中，g(z) 是 sigmoid函数，这样定义H(X)是为了让其的范围控制在0-1之间，这样H(X)的值就是数据的概率，当大于等于0.5时归为1类，反之，归为0类。在octave中实现代码如下：<br><img src="/2017/03/12/Logesitic回归的见解/1.png" alt="g"></p>
 <p>第二步，求J(theta)和 grad，其数学表达式如下：</p>
 <p>其在octave中的实现，把它编到一个函数中：</p>
 <p>costFunction函数返回J和grad。<br>第三步，这个时候的思路是求满足J(theta)的最小值的theta值，可以梯度下降，使用octave自带的fminunc来找到使得代价函数J最小的参数θ，octave中代码实现如下：</p>
