@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <title>线性回归的若干见解 | Joe | Data Science</title>
+  <title>Logesitic回归的见解 | Joe | Data Science</title>
   <meta name="description" content="" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
@@ -39,21 +39,21 @@
 <main class="content" role="main">
   <article class="post">
     <span class="post-meta">
-      <time datetime="2017-02-11T17:11:39.000Z" itemprop="datePublished">
-          2017-02-12
+      <time datetime="2017-03-12T04:49:17.000Z" itemprop="datePublished">
+          2017-03-12
       </time>
     
 </span>
-    <h1 class="post-title">线性回归的若干见解</h1>
+    <h1 class="post-title">Logesitic回归的见解</h1>
     <section class="post-content">
-      <p>根本问题是求出hypothesesis的表达式，无非就是sita和特征量x，sita的取值在线性回归当中有两种方法：</p>
-<ul>
-<li><p>梯度下降方法，注意进行feature scaling，控制在0-1范围内是最理  想的，还要选择learning rate的值，太大不好，太小也不好；</p>
-</li>
-<li><p>正规方程法，目前只适用线性回归，优点是直接可以算出sita的值，但是当特征量大时，其计算量变大，效率慢。</p>
-</li>
-</ul>
-<p>在分类等问题当中，还是选用梯度下降法，在线性回归问题中，当特征量在1W以内的话，选择正规方程法，当在1W以上的话，选择梯度下降法，但也不是很绝对。</p>
+      <p>Logisitc Regulation用来解决分类的问题，第一部分是解决，0，1二分类问题；第二部分是解决，多分类问题。<br>Part 1:<br>首先定义H(x), ,其中，g(z) 是 sigmoid函数，这样定义H(X)是为了让其的范围控制在0-1之间，这样H(X)的值就是数据的概率，当大于等于0.5时归为1类，反之，归为0类。在octave中实现代码如下：<br><img src="http://d.pr/i/8cx" alt="g"></p>
+<p>第二步，求J(theta)和 grad，其数学表达式如下：</p>
+<p>其在octave中的实现，把它编到一个函数中：</p>
+<p>costFunction函数返回J和grad。<br>第三步，这个时候的思路是求满足J(theta)的最小值的theta值，可以梯度下降，使用octave自带的fminunc来找到使得代价函数J最小的参数θ，octave中代码实现如下：</p>
+<p>注意：定义X和y，以及theta的初始值为0.<br>这个时候就完成了，找到划分两类的h(x)了。Plot出图。<br>第四部，评价。一种方法就是用这条曲线来对所有训练集中的元组进行判断，统计其正确率。</p>
+<p>完成。</p>
+<p>Part 2:<br>如果我们在碰到这种问题的分类的时候，只有2个参数只能用直线进行划分的话显然不好，我们就不得不增加参数，比如x1*x2以及x1^2等，增加参数虽然能够更好的划分训练集，但是也会带来过度匹配（overfitting）的问题，下面的练习就会解决这个问题。按照之前在正规化中的介绍，将会在代价函数中添加参数本身大小的影响，从而使得参数的大小都比较接近0。</p>
+<p>后面的和Part1 一样。</p>
 
     </section>
     <footer class="post-footer">
@@ -63,15 +63,15 @@
 </section>
       <section class="share">
     <h4>Share this post</h4>
-    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/02/12/线性回归的若干见解/"
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/03/12/Logesitic回归的见解/"
        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
         <span class="hidden">Twitter</span>
     </a>
-    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/02/12/线性回归的若干见解/"
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/03/12/Logesitic回归的见解/"
        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
         <span class="hidden">Facebook</span>
     </a>
-    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/02/12/线性回归的若干见解/"
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/03/12/Logesitic回归的见解/"
        onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
         <span class="hidden">Google+</span>
     </a>
@@ -80,14 +80,10 @@
   </article>
   <nav class="pagination" role="pagination">
     
-    <a class="newer-posts" href="/2017/03/12/Logesitic回归的见解/">
-        ← Logesitic回归的见解
-    </a>
-    
     <span class="page-number">•</span>
     
-    <a class="older-posts" href="/2016/03/12/数据挖掘基本知识/">
-        数据挖掘基本知识 →
+    <a class="older-posts" href="/2017/02/12/线性回归的若干见解/">
+        线性回归的若干见解 →
     </a>
     
 </nav>
