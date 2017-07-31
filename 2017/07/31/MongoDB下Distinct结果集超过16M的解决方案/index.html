@@ -51,9 +51,12 @@
 </span>
     <h1 class="post-title">MongoDB下Distinct结果集超过16M的解决方案</h1>
     <section class="post-content">
-      <p>MongoDB单文档大小不能超过16M，当一个集合数据量很大时（遇到的耽单个集合200W条文档），对其进行Distinct就会出现错误提示：<br>‘Array ( [errmsg] =&gt; exception: distinct too big, 16mb cap [code] =&gt; 10044 [ok] =&gt; 0 )’</p>
+      <p>MongoDB单文档大小不能超过16M，当一个集合数据量很大时（遇到的耽单个集合200W条文档），对其进行Distinct就会出现错误提示：<br><code>Array ( [errmsg] =&gt; exception: distinct too big, 
+16mb cap [code] =&gt; 10044 [ok] =&gt; 0 )</code></p>
 <p><strong>解决方案：</strong><br>MongoDB的aggeregate聚合方法:</p>
-<p>’    db.myCollection.aggregate(<br>   {$group : {_id : “$distinctfield”} },<br>   {$group: {_id:1, count: {$sum : 1 }}});<br>’</p>
+<p><code>db.myCollection.aggregate(
+{$group : {_id : &quot;$distinctfield&quot;} }, 
+   {$group: {_id:1, count: {$sum : 1 }}});</code></p>
 
     </section>
     <footer class="post-footer">
