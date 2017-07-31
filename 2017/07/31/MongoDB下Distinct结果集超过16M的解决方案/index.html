@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <title>Logesitic回归的见解 | 刘昭 | Data Science</title>
+  <title>MongoDB下Distinct结果集超过16M的解决方案 | 刘昭 | Data Science</title>
   <meta name="description" content="" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
@@ -39,26 +39,21 @@
 <main class="content" role="main">
   <article class="post">
     <span class="post-meta">
-      <time datetime="2017-03-12T04:49:17.000Z" itemprop="datePublished">
-          2017-03-12
+      <time datetime="2017-07-31T10:43:16.000Z" itemprop="datePublished">
+          2017-07-31
       </time>
     
     
     | 
-    <a href='/tags/Machine-Learning/'>Machine Learning</a>
+    <a href='/tags/MongoDB/'>-MongoDB</a>
     
     
 </span>
-    <h1 class="post-title">Logesitic回归的见解</h1>
+    <h1 class="post-title">MongoDB下Distinct结果集超过16M的解决方案</h1>
     <section class="post-content">
-      <p>Logisitc Regulation用来解决分类的问题，第一部分是解决，0，1二分类问题；第二部分是解决，多分类问题。<br>Part 1:<br>首先定义H(x), ,其中，g(z) 是 sigmoid函数，这样定义H(X)是为了让其的范围控制在0-1之间，这样H(X)的值就是数据的概率，当大于等于0.5时归为1类，反之，归为0类。在octave中实现代码如下：<br><img src="http://omounq26l.bkt.clouddn.com/%201.png" alt="g"></p>
-<p>第二步，求J(theta)和 grad，其数学表达式如下：</p>
-<p>其在octave中的实现，把它编到一个函数中：</p>
-<p>costFunction函数返回J和grad。<br>第三步，这个时候的思路是求满足J(theta)的最小值的theta值，可以梯度下降，使用octave自带的fminunc来找到使得代价函数J最小的参数θ，octave中代码实现如下：</p>
-<p>注意：定义X和y，以及theta的初始值为0.<br>这个时候就完成了，找到划分两类的h(x)了。Plot出图。<br>第四部，评价。一种方法就是用这条曲线来对所有训练集中的元组进行判断，统计其正确率。</p>
-<p>完成。</p>
-<p>Part 2:<br>如果我们在碰到这种问题的分类的时候，只有2个参数只能用直线进行划分的话显然不好，我们就不得不增加参数，比如x1*x2以及x1^2等，增加参数虽然能够更好的划分训练集，但是也会带来过度匹配（overfitting）的问题，下面的练习就会解决这个问题。按照之前在正规化中的介绍，将会在代价函数中添加参数本身大小的影响，从而使得参数的大小都比较接近0。</p>
-<p>后面的和Part1 一样。</p>
+      <p>MongoDB单文档大小不能超过16M，当一个集合数据量很大时（遇到的耽单个集合200W条文档），对其进行Distinct就会出现错误提示：<br>‘Array ( [errmsg] =&gt; exception: distinct too big, 16mb cap [code] =&gt; 10044 [ok] =&gt; 0 )’</p>
+<p><strong>解决方案：</strong><br>MongoDB的aggeregate聚合方法:</p>
+<p>’    db.myCollection.aggregate(<br>   {$group : {_id : “$distinctfield”} },<br>   {$group: {_id:1, count: {$sum : 1 }}});<br>’</p>
 
     </section>
     <footer class="post-footer">
@@ -68,15 +63,15 @@
 </section>
       <section class="share">
     <h4>Share this post</h4>
-    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/03/12/Logesitic回归的见解/"
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/07/31/MongoDB下Distinct结果集超过16M的解决方案/"
        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
         <span class="hidden">Twitter</span>
     </a>
-    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/03/12/Logesitic回归的见解/"
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/07/31/MongoDB下Distinct结果集超过16M的解决方案/"
        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
         <span class="hidden">Facebook</span>
     </a>
-    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/03/12/Logesitic回归的见解/"
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/07/31/MongoDB下Distinct结果集超过16M的解决方案/"
        onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
         <span class="hidden">Google+</span>
     </a>
@@ -85,14 +80,10 @@
   </article>
   <nav class="pagination" role="pagination">
     
-    <a class="newer-posts" href="/2017/07/31/MongoDB下Distinct结果集超过16M的解决方案/">
-        ← MongoDB下Distinct结果集超过16M的解决方案
-    </a>
-    
     <span class="page-number">•</span>
     
-    <a class="older-posts" href="/2017/02/12/线性回归的若干见解/">
-        线性回归的若干见解 →
+    <a class="older-posts" href="/2017/03/12/Logesitic回归的见解/">
+        Logesitic回归的见解 →
     </a>
     
 </nav>
@@ -100,7 +91,7 @@
 <section id="comment"  style="width: 60%; height: auto; margin-left:auto; margin-right:auto;">
   
   	   <!-- 多说评论框 start -->
- 		<div class="ds-thread" data-thread-key="2017/03/12/Logesitic回归的见解/" data-title="Logesitic回归的见解" data-url="http://yoursite.com/2017/03/12/Logesitic回归的见解/"></div>
+ 		<div class="ds-thread" data-thread-key="2017/07/31/MongoDB下Distinct结果集超过16M的解决方案/" data-title="MongoDB下Distinct结果集超过16M的解决方案" data-url="http://yoursite.com/2017/07/31/MongoDB下Distinct结果集超过16M的解决方案/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">

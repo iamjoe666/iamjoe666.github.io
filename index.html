@@ -40,6 +40,37 @@
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
+      <time datetime="2017-07-31T10:43:16.000Z" itemprop="datePublished">
+          2017-07-31
+      </time>
+    
+    
+    | 
+    <a href='/tags/MongoDB/'>-MongoDB</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2017/07/31/MongoDB下Distinct结果集超过16M的解决方案/">MongoDB下Distinct结果集超过16M的解决方案</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        MongoDB单文档大小不能超过16M，当一个集合数据量很大时（遇到的耽单个集合200W条文档），对其进行Distinct就会出现错误提示：‘Array ( [errmsg] =&gt; exception: distinct too big, 16mb cap [code] =&gt; 10044 [ok] =&gt; 0 )’
+解决方案：MongoDB的aggeregate聚合方法:
+’    db.myCollection.agg
+      
+      </p>
+      
+      <p>
+          <a href="/2017/07/31/MongoDB下Distinct结果集超过16M的解决方案/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
       <time datetime="2017-03-12T04:49:17.000Z" itemprop="datePublished">
           2017-03-12
       </time>
