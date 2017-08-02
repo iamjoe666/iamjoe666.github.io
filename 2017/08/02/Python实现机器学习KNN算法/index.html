@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Python实现机器学习KNN算法 | 刘昭 | Data Science</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="刘昭 | Data Science">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head"  style="background-image: url(//blog.ghost.org/content/images/2013/Nov/cover.png)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="http://omounq26l.bkt.clouddn.com/logo.jpg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">刘昭 | Data Science</h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2017-08-02T15:16:51.000Z" itemprop="datePublished">
+          2017-08-02
+      </time>
+    
+    
+    | 
+    <a href='/tags/Machine-Learning/'>Machine Learning</a>
+    
+    
+</span>
+    <h1 class="post-title">Python实现机器学习KNN算法</h1>
+    <section class="post-content">
+      <p><strong>前言：</strong>分类算法思想看的差不多了，python的Sckit包现在是可以直接调用来实现KNN算法，但为了加深学习的印象，还是决定自己实现下分类及聚类的算法。</p>
+<ul>
+<li><ol>
+<li>导入数据阶段</li>
+</ol>
+</li>
+<li><ol>
+<li>向量化</li>
+</ol>
+</li>
+<li><ol>
+<li>找出K个最近点中出现次数最多的类别</li>
+</ol>
+</li>
+<li><ol>
+<li>准确率</li>
+</ol>
+</li>
+</ul>
+<p>测试数据和训练数据为01组成的手写0-9的数字，<a href="http://download.csdn.net/detail/zouxy09/6610571" target="_blank" rel="external">数据下载链接点这里</a></p>
+<h4 id="导入数据阶段"><a href="#导入数据阶段" class="headerlink" title="导入数据阶段"></a>导入数据阶段</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">def loadDataset():</div><div class="line">	# 训练数据的导入</div><div class="line">	trainDataSetsDir = &apos;/Users/joe-pc/Downloads/digits/trainingDigits/&apos;</div><div class="line">	trainingFileList = os.listdir(trainDataSetsDir)</div><div class="line">	trainNum = len(trainingFileList)</div><div class="line">	X_train = zeros((trainNum, 1024))</div><div class="line">	Y_train = []</div><div class="line">	for i in xrange(trainNum):</div><div class="line">		X_train[i,:] = image2vector(trainDataSetsDir + trainingFileList[i])</div></pre></td></tr></table></figure>
+<h4 id="向量化"><a href="#向量化" class="headerlink" title="向量化"></a>向量化</h4><pre><code>def image2vector(filename):
+    fileIn = open(filename)
+    rows = 32
+    cols = 32
+    imgVector = zeros((1,rows * cols))
+    for row in xrange(rows):
+        lineStr = fileIn.readline()
+        for col in xrange(cols):
+            imgVector[0, row * 32 + col] = int(lineStr[col])
+    return imgVector
+</code></pre><h4 id="找出K个最近点中出现次数最多的类别"><a href="#找出K个最近点中出现次数最多的类别" class="headerlink" title="找出K个最近点中出现次数最多的类别"></a>找出K个最近点中出现次数最多的类别</h4><pre><code>def KNNclassify(testData, X_trains, Y_trains, k):
+    numTrain = X_trains.shape[0]
+    testdata = tile(testData,(numTrain,1))
+    diff = testdata - X_trains
+    squaredDiff = diff ** 2  # squared for the subtract
+    squaredDist = sum(squaredDiff, axis=1)  # sum is performed by row
+    distance = squaredDist ** 0.5
+
+    sortedDisIndexes = argsort(distance)
+    labelsCount = {}
+    for i in xrange(k):
+        voteLabel = Y_trains[sortedDisIndexes[i]]
+        labelsCount[voteLabel] = labelsCount.get(voteLabel, 0) + 1
+    #predict = sorted(labelsCount.items(), key = lambda item:item[1])[0][1]
+    #return predict
+    maxCount = 0
+    for key, value in labelsCount.items():
+        if value &gt; maxCount:
+            maxCount = value
+            maxIndex = key
+
+    return maxIndex
+</code></pre><h4 id="准确率及测试"><a href="#准确率及测试" class="headerlink" title="准确率及测试"></a>准确率及测试</h4><pre><code>X_train,Y_train,X_test,Y_test = loadDataset()
+
+num = X_test.shape[0]
+correctKNNCount = 0
+for i in xrange(num):
+    predict = KNNclassify(X_test[i],X_train,Y_train,3)
+    if predict == Y_test[i]:
+        correctKNNCount += 1
+accuracy = float(correctKNNCount) / num
+print &apos;The classify accuracy is: %.2f%%&apos; % (accuracy * 100)
+</code></pre>
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Zhao Liu</h4>
+    <p>A designer, developer and entrepreneur. Spends his time travelling the world with a bag of kites. Likes journalism and publishing platforms.</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/08/02/Python实现机器学习KNN算法/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/08/02/Python实现机器学习KNN算法/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/08/02/Python实现机器学习KNN算法/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2017/07/31/MongoDB下Distinct结果集超过16M的解决方案/">
+        MongoDB下Distinct结果集超过16M的解决方案 →
+    </a>
+    
+</nav>
+  
+<section id="comment"  style="width: 60%; height: auto; margin-left:auto; margin-right:auto;">
+  
+  	   <!-- 多说评论框 start -->
+ 		<div class="ds-thread" data-thread-key="2017/08/02/Python实现机器学习KNN算法/" data-title="Python实现机器学习KNN算法" data-url="http://yoursite.com/2017/08/02/Python实现机器学习KNN算法/"></div>
+		<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:"iamjoe666"};   <!-- 替换这里的duoshuo_shortname为前面注册的shortname -->
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.unstable.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] 
+				 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+			</script>
+		<!-- 多说公共JS代码 end -->
+
+ 
+</section>
+
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Zhao Liu</a> &copy; 2014 &bull; All rights reserved.</section>
+     
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+
+
+
+</body>
+</html>
