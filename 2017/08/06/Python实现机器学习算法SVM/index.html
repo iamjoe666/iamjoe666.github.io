@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Python实现机器学习算法SVM | 刘昭 | Data Science</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="刘昭 | Data Science">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head"  style="background-image: url(//blog.ghost.org/content/images/2013/Nov/cover.png)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="http://omounq26l.bkt.clouddn.com/logo.jpg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">刘昭 | Data Science</h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2017-08-06T13:58:23.000Z" itemprop="datePublished">
+          2017-08-06
+      </time>
+    
+    
+    | 
+    <a href='/tags/Machine-Learning/'>Machine Learning</a>
+    
+    
+</span>
+    <h1 class="post-title">Python实现机器学习算法SVM</h1>
+    <section class="post-content">
+      <p>先介绍一些简单的基本概念</p>
+<p>分隔超平面：将数据集分割开来的直线叫做分隔超平面。</p>
+<p>超平面：如果数据集是N维的，那么就需要N-1维的某对象来对数据进行分割。该对象叫做超平面，也就是分类的决策边界。</p>
+<p>间隔：</p>
+<p>一个点到分割面的距离，称为点相对于分割面的距离。</p>
+<p>数据集中所有的点到分割面的最小间隔的2倍，称为分类器或数据集的间隔。</p>
+<p>最大间隔：SVM分类器是要找最大的数据集间隔。</p>
+<p>支持向量：坐落在数据边际的两边超平面上的点被称为支持向量</p>
+<p>####SVM解决的问题:<br>针对在空间中对应的向量不能被一个超平面划分开，用以下两个步骤来解决</p>
+<p>1：利用一个非线性的映射把原数据集中的向量点转化到一个更高维的空间中</p>
+<p>2：在这个高纬度的空间中找一个线性超平面来根据线性可分的情况处理</p>
+<p>#####我们利用核函数来实现将非线性映射转化到更高维的空间<br>C-Support Vector Classification）：支持向量分类，基于libsvm实现的（libsvm详情参考 或者百科），数据拟合的时间复杂度是数据样本的二次方，这使得他很难扩展到10000个数据集，当输入是多类别时（SVM最初是处理二分类问题的），通过一对一的方案解决，当然也有别的解决办法。</p>
+<p>svc使用代码示例（我演示的是最简单的，官网上还有很多看起来很漂亮的分类示例，感兴趣的可以自己参考下）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">SVC参数解释 </div><div class="line">（1）C: 目标函数的惩罚系数C，用来平衡分类间隔margin和错分样本的，default C = 1.0； </div><div class="line">（2）kernel：参数选择有RBF, Linear, Poly, Sigmoid, 默认的是&quot;RBF&quot;; </div><div class="line">（3）degree：if you choose &apos;Poly&apos; in param 2, this is effective, degree决定了多项式的最高次幂； </div><div class="line">（4）gamma：核函数的系数(&apos;Poly&apos;, &apos;RBF&apos; and &apos;Sigmoid&apos;), 默认是gamma = 1 / n_features; </div><div class="line">（5）coef0：核函数中的独立项，&apos;RBF&apos; and &apos;Poly&apos;有效； </div><div class="line">（6）probablity: 可能性估计是否使用(true or false)； </div><div class="line">（7）shrinking：是否进行启发式； </div><div class="line">（8）tol（default = 1e - 3）: svm结束标准的精度; </div><div class="line">（9）cache_size: 制定训练所需要的内存（以MB为单位）； </div><div class="line">（10）class_weight: 每个类所占据的权重，不同的类设置不同的惩罚参数C, 缺省的话自适应； </div><div class="line">（11）verbose: 跟多线程有关，不大明白啥意思具体； </div><div class="line">（12）max_iter: 最大迭代次数，default = 1， if max_iter = -1, no limited; </div><div class="line">（13）decision_function_shape ： ‘ovo’ 一对一, ‘ovr’ 多对多  or None 无, default=None </div><div class="line">（14）random_state ：用于概率估计的数据重排时的伪随机数生成器的种子。 </div><div class="line"> ps：7,8,9一般不考虑。 </div><div class="line"> </div><div class="line">from sklearn.svm import SVC  </div><div class="line">import numpy as np  </div><div class="line">X= np.array([[-1,-1],[-2,-1],[1,1],[2,1]])  </div><div class="line">y = np.array([1,1,2,2])  </div><div class="line">  </div><div class="line">clf = SVC()  </div><div class="line">clf.fit(X,y)  </div><div class="line">print clf.fit(X,y)  </div><div class="line">print clf.predict([[-0.8,-1]])</div></pre></td></tr></table></figure>
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Zhao Liu</h4>
+    <p>A designer, developer and entrepreneur. Spends his time travelling the world with a bag of kites. Likes journalism and publishing platforms.</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/08/06/Python实现机器学习算法SVM/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/08/06/Python实现机器学习算法SVM/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/08/06/Python实现机器学习算法SVM/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2017/08/02/Python实现机器学习KNN算法/">
+        Python实现机器学习KNN算法 →
+    </a>
+    
+</nav>
+  
+<section id="comment"  style="width: 60%; height: auto; margin-left:auto; margin-right:auto;">
+  
+  	   <!-- 多说评论框 start -->
+ 		<div class="ds-thread" data-thread-key="2017/08/06/Python实现机器学习算法SVM/" data-title="Python实现机器学习算法SVM" data-url="http://yoursite.com/2017/08/06/Python实现机器学习算法SVM/"></div>
+		<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:"iamjoe666"};   <!-- 替换这里的duoshuo_shortname为前面注册的shortname -->
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.unstable.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] 
+				 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+			</script>
+		<!-- 多说公共JS代码 end -->
+
+ 
+</section>
+
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Zhao Liu</a> &copy; 2014 &bull; All rights reserved.</section>
+     
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+
+
+
+</body>
+</html>
