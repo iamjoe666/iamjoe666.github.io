@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>机器学习分类算法的总结以及适用场景 | 刘昭 | Data Science</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="刘昭 | Data Science">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head"  style="background-image: url(//blog.ghost.org/content/images/2013/Nov/cover.png)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="http://omounq26l.bkt.clouddn.com/logo.jpg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">刘昭 | Data Science</h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2017-09-13T08:19:46.000Z" itemprop="datePublished">
+          2017-09-13
+      </time>
+    
+    
+    | 
+    <a href='/tags/Machine-Learning/'>Machine Learning</a>
+    
+    
+</span>
+    <h1 class="post-title">机器学习分类算法的总结以及适用场景</h1>
+    <section class="post-content">
+      <p>机器学习算法的总结：</p>
+<p>当我们考虑选择哪一个分类算法的时候，经常会不知哪个好哪个不好，一种解决方案是把主流的算法都拿来测试，然后比较准确率和召回率，毕竟是一个用数据说话的时代，但这样做显得有点笨拙，因为时间成本、机器成本会造成很大的开销，那么就来总结下在不同场景下，适宜的算法，但不代表绝对，分类的好坏，最重要的其实是数据。</p>
+<ol>
+<li><strong>数据量</strong></li>
+</ol>
+<p>当数据量小时，我们可以选择一些计算量不是很少，但精度较高的算法，SVM就是一个很好的代表，可以解决小样本情况下的ML问题；可以提高泛化性能；可以解决高维问题，避免维数灾难； 可以解决非线性问题；可以避免神经网络结构选择和局部极小点问题。</p>
+<p>还有就是KNN算法，因为简单有效，容易理解和实现；重新训练的代价较低（类别体系的变化和训练集的变化）；计算时间和空间线性于训练集的规模； 错误率渐进收敛于贝叶斯错误率，可作为贝叶斯的近似；适合处理多模分类和多标签分类问题；对于类域的交叉或重叠较多的待分类样本集较为适合；</p>
+<p>当数据量大时，决策树（过拟合）或者他爸爸随机森林（很好）表现很好，计算复杂度不高，易于理解和解释，可以理解决策树所表达的意义；数据预处理阶段比较简单，且可以处理缺失数据；能够同时处理数据型和分类型属性，且可对有许多属性的数据集构造决策树；是一个白盒模型，给定一个观察模型，则根据所产生的决策树很容易推断出相应的逻辑表达式；在相对短的时间内能够对大数据集合做出可行且效果良好的分类结果；可以对有许多属性的数据集构造决策树。</p>
+<p>朴素贝叶斯也适合数据规模较大时，贝叶斯分类器的分类原理是利用各个类别的先验概率，再利用贝叶斯公式及独立性假设计算出属性的类别概率以及对象的后验概率，即该对象属于某一类的概率，选择具有最大后验概率的类作为该对象所属的类别。</p>
+<p>1.2 <strong><em>对数据敏感程度：</em></strong></p>
+<p>敏感：决策树；KNN（在K值取较小的情况）；SVM；<br>不敏感：朴素贝叶斯；逻辑回归；</p>
+<p>1.3 <strong><em>计算量大小：</em></strong></p>
+<p>计算量大：KNN；SVM（大数据量时）；<br>计算量小：逻辑回归；朴素贝叶斯；决策树；</p>
+<ol>
+<li><strong>分类集</strong></li>
+</ol>
+<p>适合多分类：决策树和他爸爸；KNN；朴素贝叶斯；<br>适合二分类：逻辑回归；SVM</p>
+<ol>
+<li><strong>拟合程度</strong></li>
+</ol>
+<p>容易过拟合：决策树；SVM（可加入惩罚因子改善拟合问题）<br>不容易过拟合：KNN；朴素贝叶斯；adaboost；<br>容易欠拟合：逻辑回归</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Zhao Liu</h4>
+    <p>A designer, developer and entrepreneur. Spends his time travelling the world with a bag of kites. Likes journalism and publishing platforms.</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/09/13/机器学习分类算法的总结以及适用场景/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/09/13/机器学习分类算法的总结以及适用场景/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/09/13/机器学习分类算法的总结以及适用场景/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2017/09/10/牛顿法和梯度下降的区别/">
+        牛顿法和梯度下降的区别 →
+    </a>
+    
+</nav>
+  
+<section id="comment"  style="width: 60%; height: auto; margin-left:auto; margin-right:auto;">
+  
+  	   <!-- 多说评论框 start -->
+ 		<div class="ds-thread" data-thread-key="2017/09/13/机器学习分类算法的总结以及适用场景/" data-title="机器学习分类算法的总结以及适用场景" data-url="http://yoursite.com/2017/09/13/机器学习分类算法的总结以及适用场景/"></div>
+		<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:"iamjoe666"};   <!-- 替换这里的duoshuo_shortname为前面注册的shortname -->
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.unstable.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] 
+				 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+			</script>
+		<!-- 多说公共JS代码 end -->
+
+ 
+</section>
+
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Zhao Liu</a> &copy; 2014 &bull; All rights reserved.</section>
+     
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+
+
+
+</body>
+</html>
